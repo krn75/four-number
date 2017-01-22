@@ -1,6 +1,8 @@
 var express = require('express');
 var app = express();
 
+var headers = require("./headers");
+
 var number = require("./number");
 // var myNumber = number.Number();
 // console.log(myNumber)
@@ -21,6 +23,10 @@ app.listen(port, function() {
 var arrGames = [];
 //var id=0;
 
+app.use("/*",function (req,res,next) {
+    headers.setHeaders(res);
+    next();
+});
 
 //Router
 app.get("/",function (req,res) {
