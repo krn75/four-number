@@ -8,6 +8,9 @@
   },
   "author": "Kozubov Ruslan",
   "license": "ISC",
+  "dependencies": {
+    "express": "4.13.3"
+  },
   "env": {
   },
   "formation": {
@@ -21,3 +24,4 @@
     }
   ]
 }
+
