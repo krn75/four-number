@@ -1,10 +1,10 @@
-var https = require("https");
+var http = require("http");
 var headers = require("./headers");
 var express = require("express"); //npm install express
 var app = express();
 
-https.createServer(app).listen(80);
-console.log("Server started  on port 80");
+http.createServer(app);
+//console.log("Server started  on port 80").listen(80);
 
 
 // app.get('/', function (req, res) {
@@ -19,7 +19,7 @@ app.use("/*",function (req,res,next) {
 });
 
 //Router
-app.get("/",function (req,res) {
+app.get("/test",function (req,res) {
     res.end(JSON.stringify(getCoords()));
 });
 
