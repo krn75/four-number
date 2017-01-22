@@ -2,10 +2,13 @@
   "name": "four-number",
   "version": "1.0.0",
   "description": "Server App for game Four-number",
-  "main": "serverApp.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node serverApp.js"
+    "start": "node server.js"
   },
   "author": "Kozubov Ruslan",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "express": "~4.9.8"
+  }
 }

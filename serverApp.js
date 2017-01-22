@@ -1,49 +1,16 @@
-var http = require("http");
-//var headers = require("./headers");
-var express = require("express"); //npm install express
+var express = require('express');
 var app = express();
 
-//http.createServer(app);
-//console.log("Server started  on port 80").listen(80);
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+var port = process.env.PORT || 8080;
 
-// app.get('/', function (req, res) {
-//     res.send('Hello World')
-// })
 
-app.set('port', process.env.PORT || 3000);
-app.use(express.logger());
-app.listen(process.env.PORT, function () {
-    console.log('***** exp listening on port: ' + process.env.PORT);
+// set the home page route
+app.get('/', function(req, res) {
+    res.end('index');
 });
 
-
-
-// //Access
-// app.use("/*",function (req,res,next) {
-//     headers.setHeaders(res);
-//     next();
-// });
-
-//Router
-app.get("/",function (req,res) {
-    res.end(JSON.stringify(getCoords()));
+app.listen(port, function() {
+    console.log('Our app is running on http://localhost:' + port);
 });
-
-function getCoords() {
-    var x0=100;
-    var y0=100;
-
-    var d=10;
-    var res = {};
-
-    res.x=x0+rand(d);
-    res.y=y0+rand(d);
-
-    return res;
-};
-
-function rand(x) {
-    return x * (2*Math.random()-1);
-};
-
-
