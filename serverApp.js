@@ -1,25 +1,31 @@
 var http = require("http");
-var headers = require("./headers");
+//var headers = require("./headers");
 var express = require("express"); //npm install express
 var app = express();
 
-http.createServer(app);
+//http.createServer(app);
 //console.log("Server started  on port 80").listen(80);
-
 
 // app.get('/', function (req, res) {
 //     res.send('Hello World')
 // })
 
-
-//Access
-app.use("/*",function (req,res,next) {
-    headers.setHeaders(res);
-    next();
+app.set('port', process.env.PORT || 3000);
+app.use(express.logger());
+app.listen(process.env.PORT, function () {
+    console.log('***** exp listening on port: ' + process.env.PORT);
 });
 
+
+
+// //Access
+// app.use("/*",function (req,res,next) {
+//     headers.setHeaders(res);
+//     next();
+// });
+
 //Router
-app.get("/test",function (req,res) {
+app.get("/",function (req,res) {
     res.end(JSON.stringify(getCoords()));
 });
 
