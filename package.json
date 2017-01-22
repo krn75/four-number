@@ -7,9 +7,5 @@
     "start": "node serverApp.js"
   },
   "author": "Kozubov Ruslan",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.14.0",
-    "request": "^2.75.0"
-  }
+  "license": "ISC"
 }
