@@ -12,11 +12,6 @@ app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
 
-//Access
-app.use("/*",function (req,res,next) {
-//    headers.setHeaders(res);
-    next();
-});
 
 
 // // set the home page route
