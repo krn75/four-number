@@ -1,9 +1,14 @@
 var express = require('express');
 var app = express();
 
-// app.listen(process.env.PORT || 3000, function(){
-//     console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
-// });
+var number = require("./number");
+// var myNumber = number.Number();
+// console.log(myNumber)
+//import Number from "./number";
+////import User from './user';
+
+
+//var number =  require('./Number.js');
 
 // set the port of our application
 //process.env.PORT lets the port be set by Heroku
@@ -12,31 +17,88 @@ app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
 
+//var users=[{login:"",pass:""}];
+var arrGames = [];
+//var id=0;
 
-
-// // set the home page route
-// app.get('/', function(req, res) {
-//     res.end('index');
-// });
 
 //Router
 app.get("/",function (req,res) {
-    res.end(JSON.stringify(getCoords()));
+    var myNumber = number.Number();
+    // console.log(myNumber);
+    var id= myNumber.generateNewNumber(4);
+    var game ={"id":id,"number":myNumber};
+    console.log(myNumber.toStr());
+    arrGames[id]=game;
+    // console.log(arrGames[id].id);
+    res.end(JSON.stringify({"id":id}));
 });
 
-function getCoords() {
-    var x0=100;
-    var y0=100;
+app.post("/",function (req,res) {
+    var bodyStr = '';
+    req.on("data",function(chunk){
+        bodyStr += chunk.toString();
+        // console.log(bodyStr);
+    });
+    req.on('end', function() {
+        var arr=JSON.parse(bodyStr);
+         // console.log(arr);
+        var result={};
+        if (arr && arr.id){
+            var game = arrGames[arr.id];
+//            console.log(game);
+            if (game) {
+                var myNumber = game.number;
+                // console.log(result);
+                result=myNumber.getAnswer(arr.numbers);
+                // console.log(result);
+            }
+        }
 
-    var d=10;
-    var res = {};
+        //res.send(JSON.stringify(result));
+        res.writeHead(200, {"Content-Type": "application/json"});
+        res.end(JSON.stringify(result));
+    });
+    // res.end(bodyStr);
+});
 
-    res.x=x0+rand(d);
-    res.y=y0+rand(d);
+// app.post('/userlogin', function(req, res) {
+//     var parsedUrl = qs.parse(url.parse(req.url).query);
+//     var email = parsedUrl.email || req.body.email;;
+// });
+// app.post('/', function(req, res){
+//     var email = req.param('email', null);  // second parameter is default
+// });
+//
+//
+//     res.end(JSON.stringify(getCoords()));
+//
+// });
 
-    return res;
-};
+function getId(id){
+    var game=arrGames[id]
+    return game?game.number:0;
+}
 
-function rand(x) {
-    return x * (2*Math.random()-1);
-};
+//
+// //Router
+// app.get("/xy",function (req,res) {
+//     res.end(JSON.stringify(getCoords()));
+// });
+//
+// function getCoords() {
+//     var x0=100;
+//     var y0=100;
+//
+//     var d=10;
+//     var res = {};
+//
+//     res.x=x0+rand(d);
+//     res.y=y0+rand(d);
+//
+//     return res;
+// };
+//
+// function rand(x) {
+//     return x * (2*Math.random()-1);
+// };

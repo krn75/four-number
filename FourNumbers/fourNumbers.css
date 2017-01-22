@@ -1,0 +1,43 @@
+body{
+    margin:0;
+    width:100vw;
+    height:100vh;
+}
+
+.registration{
+    display:none
+}
+.game{
+    margin-top:2vh;
+    margin-bottom:2vh;
+}
+.game span{
+    border: 1px solid black;
+    margin-left:1vw;
+    margin-right:1vw;
+    width: 3vw;
+}
+
+.tbl{
+    border: 1px solid black;
+    width:100vw;
+
+}
+.tbl td{
+    width:10vw ;
+    border: 1px solid palegreen;
+    padding: 1vh;
+}
+
+.hide {
+    display:none
+}
+.number{
+    width:10vw ;
+}
+.btn{
+
+}
+.current{
+
+}
