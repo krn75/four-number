@@ -1,7 +1,14 @@
 {
   "name": "four-number",
+  "version": "1.0.0",
+  "description": "Server App for game Four-number",
+  "main": "serverApp.js",
   "scripts": {
+    "test": "echo "Error: no test specified" && exit 1",
+    "start": "node serverApp.js"
   },
+  "author": "Kozubov Ruslan",
+  "license": "ISC",
   "env": {
   },
   "formation": {
@@ -11,7 +18,15 @@
   ],
   "buildpacks": [
     {
-      "url": "heroku/nodejs"
+      "url": "server/"
     }
   ]
 }
+
+
+
+//"dependencies": {
+//"body-parser": "^1.15.2",
+//"express": "^4.14.0",
+//"request": "^2.75.0"
+//},
