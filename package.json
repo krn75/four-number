@@ -9,19 +9,7 @@
   "author": "Kozubov Ruslan",
   "license": "ISC",
   "dependencies": {
-    "express": "4.13.3"
-  },
-  "env": {
-  },
-  "formation": {
-  },
-  "addons": [
-
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ]
+    "express": "^4.14.0",
+    "request": "^2.75.0"
+  }
 }
-
