@@ -12,9 +12,36 @@ app.listen(port, function() {
     console.log('Our app is running on http://localhost:' + port);
 });
 
-
-// set the home page route
-app.get('/', function(req, res) {
-    res.end('index');
+//Access
+app.use("/*",function (req,res,next) {
+    headers.setHeaders(res);
+    next();
 });
 
+
+// // set the home page route
+// app.get('/', function(req, res) {
+//     res.end('index');
+// });
+
+//Router
+app.get("/",function (req,res) {
+    res.end(JSON.stringify(getCoords()));
+});
+
+function getCoords() {
+    var x0=100;
+    var y0=100;
+
+    var d=10;
+    var res = {};
+
+    res.x=x0+rand(d);
+    res.y=y0+rand(d);
+
+    return res;
+};
+
+function rand(x) {
+    return x * (2*Math.random()-1);
+};
