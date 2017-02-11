@@ -1,0 +1,9 @@
+https://four-number.herokuapp.com/
+https://fournumber.000webhostapp.com/
+
+https://www.000webhost.com/members/website/fournumber/build
+https://dashboard.heroku.com/apps/four-number/logs
+
+
+Server: Java
+ServerNode: Node.js

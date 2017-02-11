@@ -140,7 +140,18 @@ function getAnswer(ans){
             if(xhr.status == 200) {
                 res=JSON.parse(xhr.responseText);
                 //console.log(res);
-                if (res.plus==numbersAnswer.length && res.plus==res.minus) {final();}
+                if (res.plus==numbersAnswer.length && res.plus==res.minus) {
+                    var num1=document.getElementById("number1");
+                    var num2=document.getElementById("number2");
+                    var num3=document.getElementById("number3");
+                    var num4=document.getElementById("number4");
+                    num1.innerText=query.numbers[0];
+                    num2.innerText=query.numbers[1];
+                    num3.innerText=query.numbers[2];
+                    num4.innerText=query.numbers[3];
+                    addBtn.setAttribute("disabled","true");
+
+                }
 
                 ans.innerHTML=res.plus+"/"+res.minus;
             }
@@ -150,14 +161,3 @@ function getAnswer(ans){
     };
 }
 
-function final(){
-    var num1=document.getElementById("number1");
-    var num2=document.getElementById("number2");
-    var num3=document.getElementById("number3");
-    var num4=document.getElementById("number4");
-    num1.innerText=myNumber.getNumberForPosition("0");
-    num2.innerText=myNumber.getNumberForPosition("1");
-    num3.innerText=myNumber.getNumberForPosition("2");
-    num4.innerText=myNumber.getNumberForPosition("3");
-    addBtn.setAttribute("disabled","true");
-}
