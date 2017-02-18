@@ -6,7 +6,66 @@ var ID = 0;
 var addBtn= document.getElementById("addBtn");
 addBtn.setAttribute("disabled","true");
 addBtn.onclick=function () {
+    // imagesDisable();
     addRow();
+};
+var images=[];
+var imagesCurrent=[];
+
+for (var i=0 ; i<10;i++){
+    images[i]="images/n"+i+".png";
+}
+// function getNumberByImage(img){
+//     return null;
+// }
+
+var statusEditing=true;
+
+function newDivImage(){
+    var divNewImage = document.createElement("div");
+    divNewImage.classList.add("divNewImage");
+
+    for (i in images){
+        var imgSpan = document.createElement("span");
+        imgSpan.setAttribute("class",'numberInGroup');
+        var imgNew = document.createElement("img");
+        imgNew.setAttribute("src",images[i]);
+        imgNew.onclick=function(){
+ //           console.log("imgNew");
+
+            var imgs = document.getElementsByClassName("numberCurrent");
+            for (i in imgs){
+                var im=imgs[i];
+                if (im.hidden) {
+
+                    imagesCurrent[i]=this.src;
+                    controlCurrentRow();
+
+                    im.src=this.src; //images[i]
+                    im.removeAttribute("hidden");
+                    statusEditing=false;
+                }
+            }
+
+            divNewImage.setAttribute("hidden","true");
+            // this.fadeToggle;
+        };
+
+        imgSpan.appendChild(imgNew);
+        divNewImage.appendChild(imgSpan);
+    }
+
+    return divNewImage;
+}
+
+function getNewImage(obj){
+    var imgCurrent=obj.getElementsByClassName("numberImg")[0];
+    imgCurrent.setAttribute("hidden","true");
+
+    // console.log(imgCurrent.getAttribute("class"));
+    imgCurrent.setAttribute("class",imgCurrent.getAttribute("class").replace("numberEmpty",""));
+
+    obj.appendChild(newDivImage());
 }
 
 var startBtn = document.getElementById("newGame");
@@ -37,58 +96,93 @@ startBtn.onclick=function() {
     };
 
     addBtn.removeAttribute("disabled");
+
+    var arTr=tbl.getElementsByTagName("TR");
+    for (var i=1; i<arTr.length; i++){
+        arTr[i].innerHTML="";
+    }
 };
 
 function sendOK (ans){
     getAnswer(ans);
     rowsDisable();
 }
+// function imagesDisable() {
+// }
 function rowsDisable() {
-    var numberBtn = document.getElementsByClassName("btn");
+    var numberDisable = document.getElementsByClassName("numberChoose");
+    // console.log(numberDisable.length );
+
+     for (i=numberDisable.length-1; i>=0; i--) {
+    // for (i in numberDisable) {
+        var numberChoose = numberDisable[i];
+        numberChoose.onclick="";
+        numberChoose.classList.remove("numberChoose");
+        numberChoose.classList.add("numberChooseDisabled");
+
+        numberChoose.childNodes[0].classList.remove("numberCurrent");
+        // numberChoose.childNodes[0].classList.remove("numberImg");
+        // numberChoose.childNodes[0].classList.add("numberImgDisabled");
+
+        // console.log(numberChoose.firstElementChild);
+        // console.log(numberChoose.childNodes[0]);
+        // numberChoose.firstElementChild.classList.remove("numberCurrent");
+        // numberChoose.firstElementChild.classList.add("numberImgDisabled");
+        // setAttribute("class", numberDisable[i].getAttribute("class").replace("numberCurrent","numberImgDisabled"));
+    }
+
+    var numberBtn = document.getElementsByClassName("btnOk");
     for (i=0; i<numberBtn.length; i++) {
         numberBtn[i].setAttribute("disabled","true");
     }
+    addBtn.removeAttribute("disabled");
     return numberBtn.length;
 }
 
-
 function generateTd(){
-    var sel = document.createElement("select");
-    sel.setAttribute("class",'number');
-    var op1 = document.createElement("option");
-    op1.innerHTML="1";
-    var op2 = document.createElement("option");
-    op2.innerHTML="2";
-    var op3 = document.createElement("option");
-    op3.innerHTML="3";
-    var op4 = document.createElement("option");
-    op4.innerHTML="4";
-    var op5 = document.createElement("option");
-    op5.innerHTML="5";
-    var op6 = document.createElement("option");
-    op6.innerHTML="6";
-    var op7 = document.createElement("option");
-    op7.innerHTML="7";
-    var op8 = document.createElement("option");
-    op8.innerHTML="8";
-    var op9 = document.createElement("option");
-    op9.innerHTML="9";
-    var op0 = document.createElement("option");
-    op0.innerHTML="0";
-    sel.appendChild(op1);
-    sel.appendChild(op2);
-    sel.appendChild(op3);
-    sel.appendChild(op4);
-    sel.appendChild(op5);
-    sel.appendChild(op6);
-    sel.appendChild(op7);
-    sel.appendChild(op8);
-    sel.appendChild(op9);
-    sel.appendChild(op0);
-    return sel;
+    var div1 = document.createElement("div");
+    div1.myNumber=null;
+    div1.onclick = function(){
+        statusEditing=!statusEditing;
+
+        if (statusEditing) {
+            return;
+        }
+        getNewImage(div1);
+        statusEditing=true;
+    };
+
+    div1.setAttribute("class",'numberChoose');
+    var img1=document.createElement("img");
+    img1.setAttribute("src","images/n.png");
+    img1.setAttribute("class",'numberImg numberCurrent numberEmpty');
+    div1.appendChild(img1);
+
+    return div1;
+}
+function controlCurrentRow() {
+    var res = false;
+    var btnOk=rowCurrent.getElementsByClassName("btnOk");
+
+    // var values=rowCurrent.getElementsByClassName("numberEmpty");
+    // if (values.length==0)  btnOk[0].removeAttribute("disabled");
+    function noDublicate() {
+        for (var i=0;i<imagesCurrent.length;i++){
+            for (var j=i+1;j<imagesCurrent.length;j++){
+                if (imagesCurrent[i]==imagesCurrent[j])
+                    return false;
+            }
+        }
+        return imagesCurrent.length%4==0;
+    }
+
+    if (noDublicate())
+        btnOk[0].removeAttribute("disabled");
 }
 function addRow() {
-    var cnt = rowsDisable()
+    // imagesCurrent.splice(0,imagesCurrent.length-1);
+    //rowsDisable();
+
     rowCurrent = document.createElement("TR");
     var td1 = document.createElement("TD");
     var td2 = document.createElement("TD");
@@ -106,7 +200,8 @@ function addRow() {
 
     var td5 = document.createElement("TD");
     var ok = document.createElement("button");
-    ok.setAttribute("class", "btn");
+    ok.setAttribute("class", "btnOk btn btn-success");
+    ok.setAttribute("disabled", "true");
     ok.innerHTML = "Ok"
     td5.appendChild(ok);
     rowCurrent.appendChild(td5);
@@ -119,28 +214,44 @@ function addRow() {
     }
 
     tbl.appendChild(rowCurrent);
+    //controlCurrentRow(rowCurrent);
+    addBtn.setAttribute("disabled","true");
+
 }
 function getAnswer(ans){
     var res={answer:"",plus:0,minus:0};
     var query={};
     query.id=ID;
     query.numbers=[];
+    // query.numbers=imagesCurrent;
 
-    var numbersAnswer = rowCurrent.getElementsByClassName("number");
-    for (i=0; i<numbersAnswer.length; i++) {
-        query.numbers[i]=numbersAnswer[i].value;
-       }
+//     for (i=0; i<imagesCurrent.length; i++) {
+//         // var ar=imagesCurrent[i].split("/");
+//         var ar=imagesCurrent.shift().split("/");
+//         query.numbers[i]=ar[ar.length-1].split(".")[0].slice(-1);
+// //        console.log(query.numbers[i]);
+//     }
 
+    for (i in imagesCurrent) {
+        var ar=imagesCurrent[i].split("/");
+        query.numbers[i]=ar[ar.length-1].split(".")[0].slice(-1);
+    }
+
+
+    // var numbersAnswer = rowCurrent.getElementsByClassName("numberImg");
+    // for (i=0; i<numbersAnswer.length; i++) {
+    //     query.numbers[i]=numbersAnswer[i].value;
+    // }
     xhr.open('POST', 'https://four-number.herokuapp.com/', true);
-    result={};
+    //var result={};
     xhr.send(JSON.stringify(query));
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState != 4) return;
             if(xhr.status == 200) {
                 res=JSON.parse(xhr.responseText);
-                //console.log(res);
-                if (res.plus==numbersAnswer.length && res.plus==res.minus) {
+                // console.log(res);
+                if (res.plus==imagesCurrent.length && res.plus==res.minus) {
                     var num1=document.getElementById("number1");
                     var num2=document.getElementById("number2");
                     var num3=document.getElementById("number3");

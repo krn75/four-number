@@ -3,28 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>FourNumbers</title>
-    <script src="lib/jquery.min.js" async></script>
-    <script src="lib/bootstrap.min.js" async></script>
-    <link href="lib/bootstrap.min.css" rel="stylesheet"/>
-
     <script src="fourNumbers.js" async></script>
     <link href="fourNumbers.css" rel="stylesheet"/>
 </head>
 <body>
-<div id="main" class="main">
+<div class="main">
     <div class="registration hide">
         <input>Name
         <input>Password
     </div>
     <div class="game">
-        <img id="number1" class="numberBase numberImg" src="images/n.png"/>
-        <img id="number2" class="numberBase numberImg" src="images/n.png"/>
-        <img id="number3" class="numberBase numberImg" src="images/n.png"/>
-        <img id="number4" class="numberBase numberImg" src="images/n.png"/>
-        <button id="newGame" class="btn btn-primary">New game</button>
-        <button id="addBtn" class="btn btn-success">Add</button>
+        <span id="number1" class="number">X</span>
+        <span id="number2" class="number">X</span>
+        <span id="number3" class="number">X</span>
+        <span id="number4" class="number">X</span>
+        <button id="newGame">New game</button>
+        <button id="addBtn">Add</button>
     </div>
-    <div class="tbl">
+    <div class="table">
         <table id="tbl" class="tbl">
             <tr>
                 <td>Number 1</td>
@@ -36,6 +32,7 @@
             </tr>
         </table>
     </div>
+
 </div>
 </body>
 </html>
